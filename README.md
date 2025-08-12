@@ -1,69 +1,103 @@
-# React + TypeScript + Vite
+# 🔐 Tokenizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple web application that takes your input and tokenizes it using Unicode characters and vice-versa.
 
-Currently, two official plugins are available:
+![Tokenizer Application](src/assets/page.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📹 **Demo Video**: [Watch the demo](https://x.com/BaluTirupathi/status/1955067956041306412)
 
-## Expanding the ESLint configuration
+## 📖 How to Use
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Encoding Text
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Select "Encode" mode** (default)
+2. **Enter your text** in the left textarea
+3. **Click "Encode Text"** button
+4. **View the result** - each character is converted to its Unicode code point
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+**Example:**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+Input:  "Hello"
+Output: "72 101 108 108 111"
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Decoding Text
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Switch to "Decode" mode**
+2. **Enter Unicode code points** separated by spaces in the left textarea
+3. **Click "Decode Data"** button
+4. **View the result** - code points are converted back to readable text
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Example:**
+
 ```
+Input:  "72 101 108 108 111"
+Output: "Hello"
+```
+
+### Clearing Content
+
+- **Use "Clear All" button** to reset both input and output areas
+- **Character counters** show the length of current content
+
+## 🛠️ Technical Details
+
+### Tech Stack
+
+- **Frontend Framework**: React 19.1.1
+- **Language**: TypeScript 5.8.3
+- **Styling**: Tailwind CSS 4.1.11
+- **Build Tool**: Vite 7.1.0
+- **Package Manager**: npm
+
+### Key Components
+
+#### Encoding Algorithm
+
+```typescript
+const encoded = input.split("").map((char) => {
+  return char.codePointAt(0);
+});
+setOutput(encoded.join(" "));
+```
+
+#### Decoding Algorithm
+
+```typescript
+const decoded = input.split(" ").map((char) => {
+  return String.fromCodePoint(parseInt(char));
+});
+setOutput(decoded.join(""));
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Balusekhar/tokenizer.git
+   cd tokenizer
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to see the application
