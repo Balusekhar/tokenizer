@@ -58,7 +58,7 @@ function App() {
                 </svg>
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/Balusekhar/tokenizer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/70 hover:text-gray-300 transition-colors duration-200">
